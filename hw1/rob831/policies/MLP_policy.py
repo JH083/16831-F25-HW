@@ -81,7 +81,14 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
             observation = obs[None]
 
         # TODO return the action that the policy prescribes
-        raise NotImplementedError
+        observation_tensor = ptu.from_numpy(observation)
+        with torch.no_grad():
+            if self.discrete:
+                logits = self.logits_na(observation_tensor)
+                action = torch.argmax(logits, dim=-1)
+            else:
+                action = self.mean_net(observation_tensor)
+        return ptu.to_numpy(action)
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
@@ -109,7 +116,14 @@ class MLPPolicySL(MLPPolicy):
             adv_n=None, acs_labels_na=None, qvals=None
     ):
         # TODO: update the policy and return the loss
-        loss = TODO
+        self.optimizer.zero_grad()
+        
+        observations_tensor = ptu.from_numpy(observations)
+        actions_tensor = ptu.from_numpy(actions)
+        loss = self.loss(self.forward(observations_tensor), actions_tensor)
+        
+        loss.backward()
+        self.optimizer.step()
 
         return {
             # You can add extra logging information here, but keep this line

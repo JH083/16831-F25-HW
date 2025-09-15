@@ -168,14 +168,24 @@ class RL_Trainer(object):
         # HINT: depending on if it's the first iteration or not, decide whether to either
         # (1) load the data. In this case you can directly return as follows
         # ``` return loaded_paths, 0, None ```
+        
+        if itr == 0 and load_initial_expertdata is not None:
+            print(f"\nLoading expert data from {load_initial_expertdata}...")
+            with open(load_initial_expertdata, 'rb') as f:
+                loaded_paths = pickle.load(f)
+            return loaded_paths, 0, None
 
         # (2) collect `self.params['batch_size']` transitions
+        else:
+            print("\nCollecting data to be used for training...")
+            paths, envsteps_this_batch = utils.sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'])
+            return paths, envsteps_this_batch, None
 
         # TODO collect `batch_size` samples to be used for training
         # HINT1: use sample_trajectories from utils
         # HINT2: you want each of these collected rollouts to be of length self.params['ep_len']
         print("\nCollecting data to be used for training...")
-        paths, envsteps_this_batch = TODO
+        paths, envsteps_this_batch = utils.sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'])
 
         # collect more rollouts with the same policy, to be saved as videos in tensorboard
         # note: here, we collect MAX_NVIDEO rollouts, each of length MAX_VIDEO_LEN
