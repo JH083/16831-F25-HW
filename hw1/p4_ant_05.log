@@ -1,0 +1,12 @@
+########################
+logging outputs to  /content/16831-F25-HW/hw1/rob831/scripts/../../data/q1_p4_ant_frac05_Ant-v2_19-09-2025_01-35-05
+########################
+GPU not detected. Defaulting to CPU.
+Loading expert policy from... rob831/policies/experts/Ant.pkl
+obs (1, 111) (1, 111)
+Done restoring expert policy...
+
+
+********** Iteration 0 ************
+
+Loading expert data from rob831/expert_data/expert_data_Ant-v2_frac05.pkl...
