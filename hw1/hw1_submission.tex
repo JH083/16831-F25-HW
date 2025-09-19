@@ -91,7 +91,7 @@ backgroundcolor = \color{light-yellow}
     {\Large Assignment 1: Imitation Learning} \\
     \vspace{.25cm}
     \textbf{Andrew ID:} \texttt{jihyunki} \\
-    \textbf{Collaborators:} \texttt{YOUR COLLABORATORS}\\ 
+    \textbf{Collaborators:} \texttt{}\\ 
 \end{centering}
 
 \vspace{.5cm}
@@ -131,22 +131,34 @@ backgroundcolor = \color{light-yellow}
 \end{table}%
 
 \subsection{Part 4 (3 pt)}
-\# TODO, fill in the \fref{fig:p4}, provide some analysis.
 
 \begin{figure*}[!h]
-	\centering
-\includegraphics[width=0.5\columnwidth]{path/to/your/image.png}
-	\caption{BC agent’s performance varies with the value of ??? parameter in ??? environment.}
-	\label{fig:p4}
+  \centering
+  \includegraphics[width=0.5\columnwidth]{data/fig_p4_ant_train_steps.png}
+  \caption{Behavioral cloning (BC) performance on \textbf{Ant-v2} as a function of the
+  \emph{number of training steps per iteration}. Points show the evaluation
+  mean return over at least five rollouts with standard-deviation error bars.
+  Increasing the training steps dramatically improves performance from severe
+  underfitting (250 steps) to near-expert performance around 3–4k steps, after
+  which gains taper off.}
+  \label{fig:p4}
 \end{figure*}
+
+\# TODO, fill in the \fref{fig:p4}, provide some analysis.
+
 
 \section{DAgger (5.25 pt)}
 \subsection{Part 2 (5.25 pt)}
 \# TODO, Report the results for Ant-v2 and [Another Env] in \fref{fig:p5}:
 \begin{figure*}[!h]
 	\centering
-	\includegraphics[width=1.0\columnwidth]{path/to/your/image.png}
-	\caption{Learning curve, plotting the number of DAgger iterations vs. the policy’s mean return, with error bars to show the standard deviation. Please show the Ant-v2 environment results on the left and the results from [Another Env] on the right.}
+	\includegraphics[width=1.0\columnwidth]{data/figure_2_dagger_ant_humanoid.png}
+	\caption{DAgger performance on \textbf{Ant-v2} (left) and \textbf{Humanoid-v2} (right).
+  Curves plot evaluation mean return versus DAgger iteration, with error bars showing the standard deviation across evaluation rollouts.
+  Horizontal dashed/dotted lines show the expert policy and behavioral cloning (BC) baselines, respectively.
+  Setup: DAgger used a 3-layer MLP (\texttt{--n\_layers 3}), learning rate $4\times10^{-3}$, 
+  evaluation batch size 5000; expert datasets from \texttt{rob831/expert\_data} (Ant-v2 and Humanoid-v2).
+  BC baselines were trained with the same learning rate and (for Ant) a 5-layer MLP.}
 	\label{fig:p5}
 \end{figure*}
 
