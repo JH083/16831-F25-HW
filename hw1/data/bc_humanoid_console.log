@@ -1,7 +1,10 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
 /usr/local/py38/lib/python3.8/site-packages/Cython/Distutils/old_build_ext.py:15: DeprecationWarning: dep_util is Deprecated. Use functions from setuptools instead.
   from distutils.dep_util import newer, newer_group
 ########################
-logging outputs to  /content/16831-F25-HW/hw1/rob831/scripts/../../data/q1_bc_humanoid_Humanoid-v2_19-09-2025_02-20-10
+logging outputs to  /content/16831-F25-HW/hw1/rob831/scripts/../../data/q1_bc_humanoid_Humanoid-v2_19-09-2025_18-16-19
 ########################
 GPU not detected. Defaulting to CPU.
 Loading expert policy from... rob831/policies/experts/Humanoid.pkl
@@ -29,7 +32,7 @@ Train_MaxReturn : 10365.4990234375
 Train_MinReturn : 10323.5361328125
 Train_AverageEpLen : 1000.0
 Train_EnvstepsSoFar : 0
-TimeSinceStart : 11.121641874313354
+TimeSinceStart : 11.171480655670166
 Training Loss : 0.11885496973991394
 Initial_DataCollection_AverageReturn : 10344.517578125
 Done logging...
