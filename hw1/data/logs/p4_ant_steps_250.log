@@ -1,7 +1,10 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
 /usr/local/py38/lib/python3.8/site-packages/Cython/Distutils/old_build_ext.py:15: DeprecationWarning: dep_util is Deprecated. Use functions from setuptools instead.
   from distutils.dep_util import newer, newer_group
 ########################
-logging outputs to  /content/16831-F25-HW/hw1/rob831/scripts/../../data/q1_p4_ant_steps_250_Ant-v2_19-09-2025_02-23-40
+logging outputs to  /content/16831-F25-HW/hw1/rob831/scripts/../../data/q1_p4_ant_steps_250_Ant-v2_19-09-2025_17-19-49
 ########################
 GPU not detected. Defaulting to CPU.
 Loading expert policy from... rob831/policies/experts/Ant.pkl
@@ -29,7 +32,7 @@ Train_MaxReturn : 4725.849609375
 Train_MinReturn : 4701.45654296875
 Train_AverageEpLen : 1000.0
 Train_EnvstepsSoFar : 0
-TimeSinceStart : 5.891143798828125
+TimeSinceStart : 5.227046728134155
 Training Loss : 0.005472802557051182
 Initial_DataCollection_AverageReturn : 4713.6533203125
 Done logging...

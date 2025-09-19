@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+
+# Very large training artifacts
+hw1/data/**/videos*/
+*.mp4
+*.gif
+*.avi
+*.tfevents*
+
+# Bytecode anywhere inside rob831
+hw1/rob831/**/__pycache__/

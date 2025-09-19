@@ -1,0 +1,30 @@
+=== Ant-v2 (expert data) — Summary ===
+MeanReturn : 4713.6528
+StdReturn  : 12.1978
+MaxReturn  : 4725.8506
+MinReturn  : 4701.4551
+------------------------------
+=== Humanoid-v2 (expert data) — Summary ===
+MeanReturn : 10344.5254
+StdReturn  : 20.9761
+MaxReturn  : 10365.5020
+MinReturn  : 10323.5498
+------------------------------
+=== Walker2d-v2 (expert data) — Summary ===
+MeanReturn : 5566.8467
+StdReturn  : 9.2383
+MaxReturn  : 5576.0850
+MinReturn  : 5557.6084
+------------------------------
+=== Hopper-v2 (expert data) — Summary ===
+MeanReturn : 3772.6702
+StdReturn  : 1.9470
+MaxReturn  : 3774.6172
+MinReturn  : 3770.7231
+------------------------------
+=== HalfCheetah-v2 (expert data) — Summary ===
+MeanReturn : 4205.7773
+StdReturn  : 83.0378
+MaxReturn  : 4288.8154
+MinReturn  : 4122.7397
+------------------------------
