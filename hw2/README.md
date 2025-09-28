@@ -7,6 +7,14 @@ You can run this code on your own machine or on Google Colab.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeCAR-Lab/16831-S25-HW/blob/main/hw2/rob831/scripts/run_hw2.ipynb)
 
+Local Install: Might need to install the swig tool
+```bash
+sudo apt-get update
+sudo apt-get install -y swig g++ python3-dev
+
+pip install -r requirements.txt
+```
+
 ## Complete the code
 
 The following files have blanks to be filled with your solutions from homework 1. The relevant sections are marked with "TODO: get this from hw1".
