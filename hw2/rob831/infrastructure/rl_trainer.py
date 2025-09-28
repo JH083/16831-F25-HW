@@ -97,7 +97,7 @@ class RL_Trainer(object):
     def run_training_loop(self, n_iter, collect_policy, eval_policy,
                           initial_expertdata=None, relabel_with_expert=False,
                           start_relabel_with_expert=1, expert_policy=None):
-        """
+        '''
         :param n_iter:  number of (dagger) iterations
         :param collect_policy:
         :param eval_policy:
@@ -105,14 +105,14 @@ class RL_Trainer(object):
         :param relabel_with_expert:  whether to perform dagger
         :param start_relabel_with_expert: iteration at which to start relabel with expert
         :param expert_policy:
-        """
+        '''
 
         # init vars at beginning of training
         self.total_envsteps = 0
         self.start_time = time.time()
 
         for itr in range(n_iter):
-            print("\n\n********** Iteration %i ************"%itr)
+            print('\n\n********** Iteration %i ************'%itr)
 
             # decide if videos should be rendered/logged at this iteration
             if itr % self.params['video_log_freq'] == 0 and self.params['video_log_freq'] != -1:
@@ -154,12 +154,45 @@ class RL_Trainer(object):
     ####################################
 
     def collect_training_trajectories(self, itr, load_initial_expertdata, collect_policy, batch_size):
-        # TODO: get this from hw1
-        raise NotImplementedError
+        expert_pkl = load_initial_expertdata or self.params.get('expert_data', None)
+
+        # First iteration: either load expert data, or use a bigger initial batch
+        if itr == 0:
+            if expert_pkl:
+                print(f'\nLoading expert data from {expert_pkl}...')
+                with open(expert_pkl, 'rb') as f:
+                    loaded_paths = pickle.load(f)
+                return loaded_paths, 0, None
+            else:
+                num_transitions_to_sample = self.params.get('batch_size_initial', batch_size)
+        else:
+            num_transitions_to_sample = batch_size  # normal case
+
+        # Collect transitions
+        print('\nCollecting data to be used for training...')
+        paths, envsteps_this_batch = utils.sample_trajectories(
+            self.env, collect_policy, num_transitions_to_sample, self.params['ep_len']
+        )
+
+        # Optional short videos
+        train_video_paths = None
+        if self.log_video:
+            print('\nCollecting train rollouts to be used for saving videos...')
+            video_len = getattr(self, 'MAX_VIDEO_LEN', MAX_VIDEO_LEN)
+            train_video_paths = utils.sample_n_trajectories(
+                self.env, collect_policy, MAX_NVIDEO, video_len, render=True
+            )
+
+        return paths, envsteps_this_batch, train_video_paths
 
     def train_agent(self):
-        # TODO: get this from hw1
-        raise NotImplementedError
+        print('\nTraining agent using sampled data from replay buffer...')
+        all_logs = []
+        for train_step in range(self.params['num_agent_train_steps_per_iter']):
+            ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = self.agent.sample(self.params['train_batch_size'])
+            train_log = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
+            all_logs.append(train_log)
+        return all_logs
 
     ####################################
     ####################################
@@ -171,7 +204,7 @@ class RL_Trainer(object):
         #######################
 
         # collect eval trajectories, for logging
-        print("\nCollecting data for eval...")
+        print('\nCollecting data for eval...')
         eval_paths, eval_envsteps_this_batch = utils.sample_trajectories(self.env, eval_policy, self.params['eval_batch_size'], self.params['ep_len'])
 
         # save eval rollouts as videos in tensorboard event file
@@ -191,34 +224,34 @@ class RL_Trainer(object):
         # save eval metrics
         if self.log_metrics:
             # returns, for logging
-            train_returns = [path["reward"].sum() for path in paths]
-            eval_returns = [eval_path["reward"].sum() for eval_path in eval_paths]
+            train_returns = [path['reward'].sum() for path in paths]
+            eval_returns = [eval_path['reward'].sum() for eval_path in eval_paths]
 
             # episode lengths, for logging
-            train_ep_lens = [len(path["reward"]) for path in paths]
-            eval_ep_lens = [len(eval_path["reward"]) for eval_path in eval_paths]
+            train_ep_lens = [len(path['reward']) for path in paths]
+            eval_ep_lens = [len(eval_path['reward']) for eval_path in eval_paths]
 
             # decide what to log
             logs = OrderedDict()
-            logs["Eval_AverageReturn"] = np.mean(eval_returns)
-            logs["Eval_StdReturn"] = np.std(eval_returns)
-            logs["Eval_MaxReturn"] = np.max(eval_returns)
-            logs["Eval_MinReturn"] = np.min(eval_returns)
-            logs["Eval_AverageEpLen"] = np.mean(eval_ep_lens)
+            logs['Eval_AverageReturn'] = np.mean(eval_returns)
+            logs['Eval_StdReturn'] = np.std(eval_returns)
+            logs['Eval_MaxReturn'] = np.max(eval_returns)
+            logs['Eval_MinReturn'] = np.min(eval_returns)
+            logs['Eval_AverageEpLen'] = np.mean(eval_ep_lens)
 
-            logs["Train_AverageReturn"] = np.mean(train_returns)
-            logs["Train_StdReturn"] = np.std(train_returns)
-            logs["Train_MaxReturn"] = np.max(train_returns)
-            logs["Train_MinReturn"] = np.min(train_returns)
-            logs["Train_AverageEpLen"] = np.mean(train_ep_lens)
+            logs['Train_AverageReturn'] = np.mean(train_returns)
+            logs['Train_StdReturn'] = np.std(train_returns)
+            logs['Train_MaxReturn'] = np.max(train_returns)
+            logs['Train_MinReturn'] = np.min(train_returns)
+            logs['Train_AverageEpLen'] = np.mean(train_ep_lens)
 
-            logs["Train_EnvstepsSoFar"] = self.total_envsteps
-            logs["TimeSinceStart"] = time.time() - self.start_time
+            logs['Train_EnvstepsSoFar'] = self.total_envsteps
+            logs['TimeSinceStart'] = time.time() - self.start_time
             logs.update(last_log)
 
             if itr == 0:
                 self.initial_return = np.mean(train_returns)
-            logs["Initial_DataCollection_AverageReturn"] = self.initial_return
+            logs['Initial_DataCollection_AverageReturn'] = self.initial_return
 
             # perform the logging
             for key, value in logs.items():

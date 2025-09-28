@@ -72,17 +72,50 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
                 env.render(mode=render_mode)
                 time.sleep(env.model.opt.timestep)
 
-        # TODO: get this from hw1
-        raise NotImplementedError
+        # use the most recent ob to decide what to do
+        obs.append(ob)
+        ac = policy.get_action(ob)
+        if isinstance(ac, np.ndarray) and ac.ndim > 0:
+            ac = ac[0]
+        acs.append(ac)
+
+        # take that action and record results
+        ob, rew, done, _ = env.step(ac)
+
+        # record result of taking that action
+        next_obs.append(ob)
+        rewards.append(rew)
+        steps += 1
+
+        # end the rollout if the rollout ended
+        if done or steps > max_path_length:
+            terminals.append(1)
+            break
+        else:
+            terminals.append(0)
+
     return Path(obs, image_obs, acs, rewards, next_obs, terminals)
 
 def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, render=False, render_mode=('rgb_array')):
-    # TODO: get this from hw1
-    raise NotImplementedError
+    timesteps_this_batch = 0
+    paths = []
+    while timesteps_this_batch < min_timesteps_per_batch:
+        path = sample_trajectory(env, policy, max_path_length, render, render_mode)
+        paths.append(path)
+        
+        timesteps_this_batch += get_pathlength(path)
+        print('At timestep:    ', timesteps_this_batch, '/', min_timesteps_per_batch, end='\r')
+
+    return paths, timesteps_this_batch
 
 def sample_n_trajectories(env, policy, ntraj, max_path_length, render=False, render_mode=('rgb_array')):
-    # TODO: get this from hw1
-    raise NotImplementedError
+    sampled_paths = []
+
+    for _ in range(ntraj):
+        path = sample_trajectory(env, policy, max_path_length, render, render_mode)
+        sampled_paths.append(path)
+
+    return sampled_paths
 
 ############################################
 ############################################

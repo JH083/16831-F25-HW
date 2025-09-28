@@ -87,8 +87,16 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
 
     # query the policy with observation(s) to get selected action(s)
     def get_action(self, obs: np.ndarray) -> np.ndarray:
-        # TODO: get this from hw1
-        raise NotImplementedError
+        if len(obs.shape) > 1:
+            observation = obs
+        else:
+            observation = obs[None]
+            
+        obs_tensor = ptu.from_numpy(observation)
+        with torch.no_grad():
+            action_dist = self(obs_tensor)
+            action = action_dist.sample()
+        return ptu.to_numpy(action)
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
@@ -101,8 +109,14 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
     # return more flexible objects, such as a
     # `torch.distributions.Distribution` object. It's up to you!
     def forward(self, observation: torch.FloatTensor):
-        # TODO: get this from hw1
-        raise NotImplementedError
+        if self.discrete:
+            logits = self.logits_na(observation)
+            return distributions.Categorical(logits=logits)
+        else:
+            mean = self.mean_net(observation)
+            scale_tril = torch.diag(torch.exp(self.logstd))
+            batch_scale_tril = scale_tril.repeat(mean.shape[0], 1, 1)
+            return distributions.MultivariateNormal(loc=mean, scale_tril=batch_scale_tril)
 
 #####################################################
 #####################################################
@@ -114,10 +128,20 @@ class MLPPolicyPG(MLPPolicy):
         self.baseline_loss = nn.MSELoss()
 
     def update(self, observations, actions, advantages, q_values=None):
+        # Coerce inputs to numpy arrays (ptu.from_numpy expects np.ndarray)
+        if not isinstance(observations, np.ndarray):
+            observations = np.array(observations)
+        if not isinstance(actions, np.ndarray):
+            actions = np.array(actions)
+        if isinstance(advantages, list):
+            advantages = np.concatenate(advantages, axis=0)
+        elif not isinstance(advantages, np.ndarray):
+            advantages = np.array(advantages)
+
         observations = ptu.from_numpy(observations)
         actions = ptu.from_numpy(actions)
         advantages = ptu.from_numpy(advantages)
-
+        
         # TODO: update the policy using policy gradient
         # HINT1: Recall that the expression that we want to MAXIMIZE
             # is the expectation over collected trajectories of:
@@ -128,7 +152,18 @@ class MLPPolicyPG(MLPPolicy):
         # HINT4: use self.optimizer to optimize the loss. Remember to
             # 'zero_grad' first
 
-        raise NotImplementedError
+        if self.discrete:
+            actions = actions.long()
+            if actions.ndim > 1:
+                actions = actions.squeeze(-1)
+
+        dist = self(observations)
+        log_probs = dist.log_prob(actions)
+        policy_loss = -(log_probs * advantages).mean()
+
+        self.optimizer.zero_grad()
+        policy_loss.backward()
+        self.optimizer.step()
 
         if self.nn_baseline:
             ## TODO: update the neural network baseline using the q_values as
@@ -139,7 +174,17 @@ class MLPPolicyPG(MLPPolicy):
                 ## updating the baseline. Remember to 'zero_grad' first
             ## HINT2: You will need to convert the targets into a tensor using
                 ## ptu.from_numpy before using it in the loss
-            raise NotImplementedError
+            assert q_values is not None
+            q_mean = np.mean(q_values)
+            q_std = np.std(q_values)
+            targets = normalize(q_values, q_mean, q_std)
+            targets = ptu.from_numpy(targets).unsqueeze(-1)
+            
+            baseline_predictions = self.baseline(observations)
+            baseline_loss = self.baseline_loss(baseline_predictions, targets)
+            self.baseline_optimizer.zero_grad()
+            baseline_loss.backward()
+            self.baseline_optimizer.step()
 
         train_log = {
             'Training Loss': ptu.to_numpy(policy_loss),
