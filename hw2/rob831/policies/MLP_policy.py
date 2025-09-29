@@ -175,6 +175,11 @@ class MLPPolicyPG(MLPPolicy):
             ## HINT2: You will need to convert the targets into a tensor using
                 ## ptu.from_numpy before using it in the loss
             assert q_values is not None
+            # ensure q_values is a flat numpy vector (not list-of-arrays)
+            if isinstance(q_values, list):
+                q_values = np.concatenate(q_values)
+            else:
+                q_values = np.asarray(q_values)
             q_mean = np.mean(q_values)
             q_std = np.std(q_values)
             targets = normalize(q_values, q_mean, q_std)
