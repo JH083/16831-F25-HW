@@ -86,7 +86,11 @@ class PGAgent(BaseAgent):
             values_normalized = self.actor.run_baseline_prediction(obs)
             ## ensure that the value predictions and q_values have the same dimensionality
             ## to prevent silent broadcasting errors
-            q_values = np.asarray(q_values)
+            # flatten per-trajectory q_values into one vector matching obs length
+            if isinstance(q_values, list):
+                q_values = np.concatenate(q_values)
+            else:
+                q_values = np.asarray(q_values)
             assert values_normalized.ndim == q_values.ndim
             ## TODO: values were trained with standardized q_values, so ensure
                 ## that the predictions have the same mean and standard deviation as
@@ -129,7 +133,8 @@ class PGAgent(BaseAgent):
 
             else:
                 ## TODO: compute advantage estimates using q_values, and values as baselines
-                advantages = q_values_array - values
+                advantages = np.concatenate(q_values) if isinstance(q_values, list) else np.asarray(q_values)
+                # advantages = q_values_array - values
 
         # Else, just set the advantage to [Q]
         else:
