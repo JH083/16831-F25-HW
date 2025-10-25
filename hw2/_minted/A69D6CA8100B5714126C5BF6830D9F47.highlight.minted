@@ -1,0 +1,19 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+python\PYG{+w}{ }rob831/scripts/run\PYGZus{}hw2.py\PYG{+w}{ }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }CartPole\PYGZhy{}v0\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{150}\PYG{+w}{ }\PYGZhy{}b\PYG{+w}{ }\PYG{l+m}{1500}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{    }\PYGZhy{}dsa\PYG{+w}{ }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q1\PYGZus{}sb\PYGZus{}no\PYGZus{}rtg\PYGZus{}dsa
+
+python\PYG{+w}{ }rob831/scripts/run\PYGZus{}hw2.py\PYG{+w}{ }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }CartPole\PYGZhy{}v0\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{150}\PYG{+w}{ }\PYGZhy{}b\PYG{+w}{ }\PYG{l+m}{1500}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{    }\PYGZhy{}rtg\PYG{+w}{ }\PYGZhy{}dsa\PYG{+w}{ }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q1\PYGZus{}sb\PYGZus{}rtg\PYGZus{}dsa
+
+python\PYG{+w}{ }rob831/scripts/run\PYGZus{}hw2.py\PYG{+w}{ }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }CartPole\PYGZhy{}v0\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{150}\PYG{+w}{ }\PYGZhy{}b\PYG{+w}{ }\PYG{l+m}{1500}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{    }\PYGZhy{}rtg\PYG{+w}{ }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q1\PYGZus{}sb\PYGZus{}rtg\PYGZus{}na
+
+python\PYG{+w}{ }rob831/scripts/run\PYGZus{}hw2.py\PYG{+w}{ }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }CartPole\PYGZhy{}v0\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{150}\PYG{+w}{ }\PYGZhy{}b\PYG{+w}{ }\PYG{l+m}{6000}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{    }\PYGZhy{}dsa\PYG{+w}{ }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q1\PYGZus{}lb\PYGZus{}no\PYGZus{}rtg\PYGZus{}dsa
+
+python\PYG{+w}{ }rob831/scripts/run\PYGZus{}hw2.py\PYG{+w}{ }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }CartPole\PYGZhy{}v0\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{150}\PYG{+w}{ }\PYGZhy{}b\PYG{+w}{ }\PYG{l+m}{6000}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{    }\PYGZhy{}rtg\PYG{+w}{ }\PYGZhy{}dsa\PYG{+w}{ }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q1\PYGZus{}lb\PYGZus{}rtg\PYGZus{}dsa
+
+python\PYG{+w}{ }rob831/scripts/run\PYGZus{}hw2.py\PYG{+w}{ }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }CartPole\PYGZhy{}v0\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{150}\PYG{+w}{ }\PYGZhy{}b\PYG{+w}{ }\PYG{l+m}{6000}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{    }\PYGZhy{}rtg\PYG{+w}{ }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q1\PYGZus{}lb\PYGZus{}rtg\PYGZus{}na
+\end{MintedVerbatim}

@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+c1}{\PYGZsh{} Search space: batch size \PYGZob{}15000, 35000, 55000\PYGZcb{}, learning rate \PYGZob{}0.005, 0.01, 0.02\PYGZcb{}}
+\PYG{k}{for} \PYG{n}{B} \PYG{o+ow}{in} \PYG{l+m+mi}{15000} \PYG{l+m+mi}{35000} \PYG{l+m+mi}{55000}\PYG{p}{;} \PYG{n}{do}
+  \PYG{k}{for} \PYG{n}{LR} \PYG{o+ow}{in} \PYG{l+m+mf}{0.005} \PYG{l+m+mf}{0.01} \PYG{l+m+mf}{0.02}\PYG{p}{;} \PYG{n}{do}
+    \PYG{o}{/}\PYG{n}{content}\PYG{o}{/}\PYG{n}{py310}\PYG{o}{/}\PYG{n+nb}{bin}\PYG{o}{/}\PYG{n}{python} \PYG{o}{\PYGZhy{}}\PYG{n}{m} \PYG{n}{rob831}\PYG{o}{.}\PYG{n}{scripts}\PYG{o}{.}\PYG{n}{run\PYGZus{}hw2} \PYGZbs{}
+      \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{env\PYGZus{}name} \PYG{n}{HalfCheetah}\PYG{o}{\PYGZhy{}}\PYG{n}{v4} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{ep\PYGZus{}len} \PYG{l+m+mi}{150} \PYGZbs{}
+      \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{discount} \PYG{l+m+mf}{0.95} \PYG{o}{\PYGZhy{}}\PYG{n}{n} \PYG{l+m+mi}{100} \PYG{o}{\PYGZhy{}}\PYG{n}{l} \PYG{l+m+mi}{2} \PYG{o}{\PYGZhy{}}\PYG{n}{s} \PYG{l+m+mi}{32} \PYGZbs{}
+      \PYG{o}{\PYGZhy{}}\PYG{n}{b} \PYG{err}{\PYGZdl{}}\PYG{n}{B} \PYG{o}{\PYGZhy{}}\PYG{n}{lr} \PYG{err}{\PYGZdl{}}\PYG{n}{LR} \PYG{o}{\PYGZhy{}}\PYG{n}{rtg} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{nn\PYGZus{}baseline} \PYGZbs{}
+      \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{exp\PYGZus{}name} \PYG{n}{q4\PYGZus{}search\PYGZus{}b}\PYG{err}{\PYGZdl{}}\PYG{p}{\PYGZob{}}\PYG{n}{B}\PYG{p}{\PYGZcb{}}\PYG{n}{\PYGZus{}lr}\PYG{err}{\PYGZdl{}}\PYG{p}{\PYGZob{}}\PYG{n}{LR}\PYG{p}{\PYGZcb{}}\PYG{n}{\PYGZus{}rtg\PYGZus{}nnbaseline}
+  \PYG{n}{done}
+\PYG{n}{done}
+\end{MintedVerbatim}

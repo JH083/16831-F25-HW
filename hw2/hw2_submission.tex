@@ -69,7 +69,7 @@ backgroundcolor = \color{light-yellow}
 \end{centering}
 \vspace{0.25cm}
 
-\textbf{Andrew ID:} \texttt{Write your Andrew ID here.} \\
+\textbf{Andrew ID:} \texttt{jihyunki} \\
 \textbf{Collaborators:} \texttt{Write the Andrew IDs of your collaborators here (if any).}\\ 
 \textbf{NOTE:} Please do \textbf{NOT} change the sizes of the answer blocks or plots.
 
@@ -80,7 +80,6 @@ backgroundcolor = \color{light-yellow}
 
 \subsubsection{Configurations}
 \begin{answer}[title=Q5.1.1,height=6cm,width=\linewidth]
-% TODO
 \begin{minted}
 [framesep=2mm, fontsize=\scriptsize, breaklines]
 {bash}
@@ -108,59 +107,71 @@ python rob831/scripts/run_hw2.py --env_name CartPole-v0 -n 150 -b 6000 \
 
 \subsubsubsection{Small batch -- \lbrack1 points\rbrack}
 \begin{answer}[title=Q5.1.2.1,height=9.5cm,width=\linewidth]
-% TODO
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q1_sb.png}
 \end{answer}
 
 \subsubsubsection{Large batch -- \lbrack1 points\rbrack}
 \begin{answer}[title=Q5.1.2.2,height=9.5cm,width=\linewidth]
-% TODO
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q1_lb.png}
 \end{answer}
 
 \subsubsection{Analysis}
 
 \subsubsubsection{Value estimator -- \lbrack1 points\rbrack}
 \begin{answer}[title=Q5.1.3.1,height=4cm,width=\linewidth]
-% TODO
+The reward-to-go estimator shows better performance compared to the trajectory-centric estimator without advantage standardization. Across both small-batch (b=1500) and large-batch (b=6000) settings, reward-to-go policies converge more quickly to the optimal return and maintain higher stability, while trajectory-centric estimators learn more slowly and often fluctuate at lower performance. This confirms that reward-to-go provides a more informative gradient signal, enabling faster and more stable learning.
 \end{answer}
 
 \subsubsubsection{Advantage standardization -- \lbrack1 points\rbrack}
 \begin{answer}[title=Q5.1.3.2,height=4cm,width=\linewidth]
-% TODO
+Advantage standardization improves training stability across both small and large batch settings. With standardization, the learning curves become smoother and exhibit reduced variance, indicating that normalizing advantages helps stabilize updates and prevents divergence. This leads to more consistent convergence toward the optimal return.
 \end{answer}
 
 \subsubsubsection{Batch size -- \lbrack1 points\rbrack}
 \begin{answer}[title=Q5.1.3.3,height=4cm,width=\linewidth]
-% TODO
+Smaller batches lead to noisier learning curves and less consistent final returns, while larger batches provide more reliable gradient estimates and smoother convergence. Larger batch runs consistently reach higher and more stable returns, demonstrating the advantage of using greater batch sizes in this setting.
 \end{answer}
 
 \subsection{Experiment 2 (InvertedPendulum) -- \lbrack4 points total\rbrack}
 
 \subsubsection{Configurations -- \lbrack1.5 points\rbrack}
 \begin{answer}[title=Q5.2.1,height=10cm,width=\linewidth]
-% TODO
 \begin{minted}
 [framesep=2mm, fontsize=\scriptsize, breaklines]
 {bash}
-python rob831/scripts/run_hw2.py --env_name InvertedPendulum-v4 \
-    --ep_len 1000 --discount 0.92 -n 100 -l 2 -s 64 -b <b*> -lr <r*> -rtg \
-    --exp_name q2_b<b*>_r<r*>
+# Sweep used to explore b and r
+for B in 800 1000 1500 2000; do
+  for LR in 0.001 0.003 0.01 0.03; do
+    /content/py310/bin/python -m rob831.scripts.run_hw2 \
+      --env_name InvertedPendulum-v4 \
+      --ep_len 1000 --discount 0.92 \
+      -n 100 -l 2 -s 64 \
+      -b $B -lr $LR -rtg \
+      --exp_name q2_b${B}_r${LR}
+  done
+done
+
+# Final chosen run (b* = 1000, r* = 0.01)
+/content/py310/bin/python -m rob831.scripts.run_hw2 \
+  --env_name InvertedPendulum-v4 \
+  --ep_len 1000 --discount 0.92 \
+  -n 100 -l 2 -s 64 \
+  -b 1000 -lr 0.01 -rtg \
+  --exp_name q2_b1000_r0.01
 \end{minted}
 \end{answer}
 
 \subsubsection{smallest \textbf{b*} and largest \textbf{r*} (same run) -- \lbrack1.5 points\rbrack}
 \begin{answer}[title=Q5.2.2,height=4cm,width=\linewidth]
-% TODO
+The smallest batch size and largest learning rate combination that still reached the optimal score within 100 iterations was b = 1000* and r = 0.01*. This configuration converged to the maximum reward of 1000 in fewer than 100 iterations, demonstrating fast and stable learning.
 \end{answer}
 
 \subsubsection{Plot -- \lbrack1 points\rbrack}
 \begin{answer}[title=Q5.2.3,height=10cm,width=\linewidth]
-% TODO
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q2.png}
 \end{answer}
 
 \setcounter{section}{6}
@@ -182,9 +193,8 @@ python rob831/scripts/run_hw2.py \
 
 \subsubsection{Plot -- \lbrack1 points\rbrack}
 \begin{answer}[title=Q7.1.2,height=10cm,width=\linewidth]
-% TODO
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q3.png}
 \end{answer}
 
 \subsection{Experiment 4 (HalfCheetah) -- \lbrack1 points\rbrack}
@@ -194,74 +204,66 @@ python rob831/scripts/run_hw2.py \
 \begin{minted}
 [framesep=2mm, fontsize=\scriptsize, breaklines, escapeinside=||, mathescape=true]
 {python}
-python rob831/scripts/run_hw2.py --env_name HalfCheetah-v4 --ep_len 150 \
-    --discount 0.95 -n 100 -l 2 -s 32 -b 10000 -lr 0.02 \
-    --exp_name q4_search_b10000_lr0.02
-python rob831/scripts/run_hw2.py --env_name HalfCheetah-v4 --ep_len 150 \
-    --discount 0.95 -n 100 -l 2 -s 32 -b 10000 -lr 0.02 -rtg \
-    --exp_name q4_search_b10000_lr0.02_rtg
-python rob831/scripts/run_hw2.py --env_name HalfCheetah-v4 --ep_len 150 \
-    --discount 0.95 -n 100 -l 2 -s 32 -b 10000 -lr 0.02 --nn_baseline \
-    --exp_name q4_search_b10000_lr0.02_nnbaseline
-python rob831/scripts/run_hw2.py --env_name HalfCheetah-v4 --ep_len 150 \
-    --discount 0.95 -n 100 -l 2 -s 32 -b 10000 -lr 0.02 -rtg --nn_baseline \
-    --exp_name q4_search_b10000_lr0.02_rtg_nnbaseline
+# Search space: batch size {15000, 35000, 55000}, learning rate {0.005, 0.01, 0.02}
+for B in 15000 35000 55000; do
+  for LR in 0.005 0.01 0.02; do
+    /content/py310/bin/python -m rob831.scripts.run_hw2 \
+      --env_name HalfCheetah-v4 --ep_len 150 \
+      --discount 0.95 -n 100 -l 2 -s 32 \
+      -b $B -lr $LR -rtg --nn_baseline \
+      --exp_name q4_search_b${B}_lr${LR}_rtg_nnbaseline
+  done
+done
 \end{minted}
 \end{answer}
 
 \subsubsection{Plot -- \lbrack1 points\rbrack}
 \begin{answer}[title=Q7.2.2,height=10cm,width=\linewidth]
-% TODO
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q4_1.png}
 \end{answer}
 
 \subsubsection{(bonus) Optimal b* and r* -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.3,height=4cm,width=\linewidth]
-% TODO
+I found b*=35000, r*=0.01
 \end{answer}
 
 \subsubsection{(bonus) Plot -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.4,height=10cm,width=\linewidth]
-% TODO
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q4_2.png}
 \end{answer}
 
 \subsubsection{(bonus) Describe how b* and r* affect task performance -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.5,height=4cm,width=\linewidth]
-% TODO
+Larger batches ($b=35\text{k}$–$55\text{k}$) produced smoother curves and faster, more reliable gains, while $b=15\text{k}$ was noticeably noisier and tended to plateau lower. The learning rate showed the usual bias–variance trade-off: $r=0.005$ was too conservative (slow improvement and lower final returns), whereas $r=0.02$ often became unstable with higher variance and occasional regressions. The mid-range $r=0.01$ consistently yielded the best performance and stability. Taken together, the results indicate an optimal setting around \boxed{b^=35{,}000,\ r^=0.01}, which balances sample efficiency and stable policy updates and attains the highest returns in the plot.
 \end{answer}
 
 \subsubsection{(bonus) Configurations with optimal b* and r* -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.6,height=6cm,width=\linewidth]
-% TODO
 \begin{minted}
 [framesep=2mm, fontsize=\scriptsize, breaklines]
 {bash}
-python rob831/scripts/run_hw2.py --env_name HalfCheetah-v4 --ep_len 150 \
-    --discount 0.95 -n 100 -l 2 -s 32 -b <b*> -lr <r*> \
-    --exp_name q4_b<b*>_r<r*>
+# Run HalfCheetah-v4 with b*=35000, r*=0.01
 
-python rob831/scripts/run_hw2.py --env_name HalfCheetah-v4 --ep_len 150 \
-    --discount 0.95 -n 100 -l 2 -s 32 -b <b*> -lr <r*> -rtg \
-    --exp_name q4_b<b*>_r<r*>_rtg
+/content/py310/bin/python -m rob831.scripts.run_hw2 --env_name HalfCheetah-v4 --ep_len 150 \
+  --discount 0.95 -n 100 -l 2 -s 32 -b 35000 -lr 0.01 --exp_name q4_b35000_r0.01
 
-python rob831/scripts/run_hw2.py --env_name HalfCheetah-v4 --ep_len 150 \
-    --discount 0.95 -n 100 -l 2 -s 32 -b <b*> -lr <r*> --nn_baseline \
-    --exp_name q4_b<b*>_r<r*>_nnbaseline
+/content/py310/bin/python -m rob831.scripts.run_hw2 --env_name HalfCheetah-v4 --ep_len 150 \
+  --discount 0.95 -n 100 -l 2 -s 32 -b 35000 -lr 0.01 -rtg --exp_name q4_b35000_r0.01_rtg
 
-python rob831/scripts/run_hw2.py --env_name HalfCheetah-v4 --ep_len 150 \
-    --discount 0.95 -n 100 -l 2 -s 32 -b <b*> -lr <r*> -rtg --nn_baseline \
-    --exp_name q4_b<b*>_r<r*>_rtg_nnbaseline
+/content/py310/bin/python -m rob831.scripts.run_hw2 --env_name HalfCheetah-v4 --ep_len 150 \
+  --discount 0.95 -n 100 -l 2 -s 32 -b 35000 -lr 0.01 --nn_baseline --exp_name q4_b35000_r0.01_nnbaseline
+
+/content/py310/bin/python -m rob831.scripts.run_hw2 --env_name HalfCheetah-v4 --ep_len 150 \
+  --discount 0.95 -n 100 -l 2 -s 32 -b 35000 -lr 0.01 -rtg --nn_baseline --exp_name q4_b35000_r0.01_rtg_nnbaseline
 \end{minted}
 \end{answer}
 
 \subsubsection{(bonus) Plot for four runs with optimal b* and r* -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.7,height=10cm,width=\linewidth]
-% TODO
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q4_3.png}
 \end{answer}
 
 \section{Implementing Generalized Advantage Estimation}
@@ -284,14 +286,13 @@ python rob831/scripts/run_hw2.py \
 
 \subsubsection{Plot -- \lbrack2 points\rbrack}
 \begin{answer}[title=Q8.1.2,height=10cm,width=\linewidth]
-% TODO
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q5.png}
 \end{answer}
 
 \subsubsection{Describe how $\lambda$ affects task performance -- \lbrack2 points\rbrack}
 \begin{answer}[title=Q8.1.3,height=4cm,width=\linewidth]
-% TODO
+The choice of $\lambda$ strongly impacts both stability and final performance. At $\lambda=0$, the policy fails to learn effectively, oscillating with low returns below 250. Increasing $\lambda$ improves performance: $\lambda=0.95$ and $\lambda=0.99$ achieve the highest returns, with $\lambda=0.99$ reaching peaks above 600 but at the cost of higher variance and instability, while $\lambda=0.95$ provides steadier learning with returns in the 400–500 range. In contrast, $\lambda=1$ produces more stable but lower returns around 300–350, suggesting reduced variance but limited performance. Overall, moderate-to-high $\lambda$ values (0.95–0.99) strike the best balance between bias and variance, yielding faster learning and higher average returns compared to extreme values of $\lambda$.
 \end{answer}
 
 \clearpage

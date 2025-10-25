@@ -1,0 +1,21 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Sweep used to explore b and r}
+\PYG{k}{for}\PYG{+w}{ }B\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{l+m}{800}\PYG{+w}{ }\PYG{l+m}{1000}\PYG{+w}{ }\PYG{l+m}{1500}\PYG{+w}{ }\PYG{l+m}{2000}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{do}
+\PYG{+w}{  }\PYG{k}{for}\PYG{+w}{ }LR\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{l+m}{0}.001\PYG{+w}{ }\PYG{l+m}{0}.003\PYG{+w}{ }\PYG{l+m}{0}.01\PYG{+w}{ }\PYG{l+m}{0}.03\PYG{p}{;}\PYG{+w}{ }\PYG{k}{do}
+\PYG{+w}{    }/content/py310/bin/python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }rob831.scripts.run\PYGZus{}hw2\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{      }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }InvertedPendulum\PYGZhy{}v4\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{      }\PYGZhy{}\PYGZhy{}ep\PYGZus{}len\PYG{+w}{ }\PYG{l+m}{1000}\PYG{+w}{ }\PYGZhy{}\PYGZhy{}discount\PYG{+w}{ }\PYG{l+m}{0}.92\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{      }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{100}\PYG{+w}{ }\PYGZhy{}l\PYG{+w}{ }\PYG{l+m}{2}\PYG{+w}{ }\PYGZhy{}s\PYG{+w}{ }\PYG{l+m}{64}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{      }\PYGZhy{}b\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}B}\PYG{+w}{ }\PYGZhy{}lr\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}LR}\PYG{+w}{ }\PYGZhy{}rtg\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{      }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q2\PYGZus{}b\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nv}{B}\PYG{l+s+si}{\PYGZcb{}}\PYGZus{}r\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nv}{LR}\PYG{l+s+si}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{k}{done}
+\PYG{k}{done}
+
+\PYG{c+c1}{\PYGZsh{} Final chosen run (b* = 1000, r* = 0.01)}
+/content/py310/bin/python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }rob831.scripts.run\PYGZus{}hw2\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{  }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }InvertedPendulum\PYGZhy{}v4\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{  }\PYGZhy{}\PYGZhy{}ep\PYGZus{}len\PYG{+w}{ }\PYG{l+m}{1000}\PYG{+w}{ }\PYGZhy{}\PYGZhy{}discount\PYG{+w}{ }\PYG{l+m}{0}.92\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{  }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{100}\PYG{+w}{ }\PYGZhy{}l\PYG{+w}{ }\PYG{l+m}{2}\PYG{+w}{ }\PYGZhy{}s\PYG{+w}{ }\PYG{l+m}{64}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{  }\PYGZhy{}b\PYG{+w}{ }\PYG{l+m}{1000}\PYG{+w}{ }\PYGZhy{}lr\PYG{+w}{ }\PYG{l+m}{0}.01\PYG{+w}{ }\PYGZhy{}rtg\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{  }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q2\PYGZus{}b1000\PYGZus{}r0.01
+\end{MintedVerbatim}

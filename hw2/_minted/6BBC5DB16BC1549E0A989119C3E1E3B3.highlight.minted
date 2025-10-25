@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+c1}{\PYGZsh{} $\lambda \in [0,0.95,0.99,1]$}
+\PYG{n}{python} \PYG{n}{rob831}\PYG{o}{/}\PYG{n}{scripts}\PYG{o}{/}\PYG{n}{run\PYGZus{}hw2}\PYG{o}{.}\PYG{n}{py} \PYGZbs{}
+    \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{env\PYGZus{}name} \PYG{n}{Hopper}\PYG{o}{\PYGZhy{}}\PYG{n}{v4} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{ep\PYGZus{}len} \PYG{l+m+mi}{1000}
+    \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{discount} \PYG{l+m+mf}{0.99} \PYG{o}{\PYGZhy{}}\PYG{n}{n} \PYG{l+m+mi}{300} \PYG{o}{\PYGZhy{}}\PYG{n}{l} \PYG{l+m+mi}{2} \PYG{o}{\PYGZhy{}}\PYG{n}{s} \PYG{l+m+mi}{32} \PYG{o}{\PYGZhy{}}\PYG{n}{b} \PYG{l+m+mi}{2000} \PYG{o}{\PYGZhy{}}\PYG{n}{lr} \PYG{l+m+mf}{0.001} \PYGZbs{}
+    \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{reward\PYGZus{}to\PYGZus{}go} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{nn\PYGZus{}baseline} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{action\PYGZus{}noise\PYGZus{}std} \PYG{l+m+mf}{0.5} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{gae\PYGZus{}lambda} \PYG{o}{\PYGZlt{}}\PYG{esc}{$\lambda$}\PYG{o}{\PYGZgt{}} \PYGZbs{}
+    \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{exp\PYGZus{}name} \PYG{n}{q5\PYGZus{}b2000\PYGZus{}r0}\PYG{l+m+mf}{.001}\PYG{n}{\PYGZus{}lambda}\PYG{o}{\PYGZlt{}}\PYG{esc}{$\lambda$}\PYG{o}{\PYGZgt{}}
+\end{MintedVerbatim}

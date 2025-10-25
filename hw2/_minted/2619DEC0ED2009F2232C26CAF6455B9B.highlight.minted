@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+python\PYG{+w}{ }rob831/scripts/run\PYGZus{}hw2.py\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{    }\PYGZhy{}\PYGZhy{}env\PYGZus{}name\PYG{+w}{ }LunarLanderContinuous\PYGZhy{}v4\PYG{+w}{ }\PYGZhy{}\PYGZhy{}ep\PYGZus{}len\PYG{+w}{ }\PYG{l+m}{1000}
+\PYG{+w}{    }\PYGZhy{}\PYGZhy{}discount\PYG{+w}{ }\PYG{l+m}{0}.99\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{100}\PYG{+w}{ }\PYGZhy{}l\PYG{+w}{ }\PYG{l+m}{2}\PYG{+w}{ }\PYGZhy{}s\PYG{+w}{ }\PYG{l+m}{64}\PYG{+w}{ }\PYGZhy{}b\PYG{+w}{ }\PYG{l+m}{10000}\PYG{+w}{ }\PYGZhy{}lr\PYG{+w}{ }\PYG{l+m}{0}.005\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{    }\PYGZhy{}\PYGZhy{}reward\PYGZus{}to\PYGZus{}go\PYG{+w}{ }\PYGZhy{}\PYGZhy{}nn\PYGZus{}baseline\PYG{+w}{ }\PYGZhy{}\PYGZhy{}exp\PYGZus{}name\PYG{+w}{ }q3\PYGZus{}b10000\PYGZus{}r0.005
+\end{MintedVerbatim}
