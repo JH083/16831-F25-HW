@@ -223,23 +223,23 @@ done
 \includegraphics[height=8cm]{q4_1.png}
 \end{answer}
 
-\subsubsection{(bonus) Optimal b* and r* -- \lbrack0.5 points\rbrack}
+\subsubsection{ Optimal b* and r* -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.3,height=4cm,width=\linewidth]
 I found b*=35000, r*=0.01
 \end{answer}
 
-\subsubsection{(bonus) Plot -- \lbrack0.5 points\rbrack}
+\subsubsection{ Plot -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.4,height=10cm,width=\linewidth]
 \centering
 \includegraphics[height=8cm]{q4_2.png}
 \end{answer}
 
-\subsubsection{(bonus) Describe how b* and r* affect task performance -- \lbrack0.5 points\rbrack}
+\subsubsection{ Describe how b* and r* affect task performance -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.5,height=4cm,width=\linewidth]
 Larger batches ($b=35\text{k}$–$55\text{k}$) produced smoother curves and faster, more reliable gains, while $b=15\text{k}$ was noticeably noisier and tended to plateau lower. The learning rate showed the usual bias–variance trade-off: $r=0.005$ was too conservative (slow improvement and lower final returns), whereas $r=0.02$ often became unstable with higher variance and occasional regressions. The mid-range $r=0.01$ consistently yielded the best performance and stability. Taken together, the results indicate an optimal setting around \boxed{b^=35{,}000,\ r^=0.01}, which balances sample efficiency and stable policy updates and attains the highest returns in the plot.
 \end{answer}
 
-\subsubsection{(bonus) Configurations with optimal b* and r* -- \lbrack0.5 points\rbrack}
+\subsubsection{Configurations with optimal b* and r* -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.6,height=6cm,width=\linewidth]
 \begin{minted}
 [framesep=2mm, fontsize=\scriptsize, breaklines]
@@ -260,7 +260,7 @@ Larger batches ($b=35\text{k}$–$55\text{k}$) produced smoother curves and fast
 \end{minted}
 \end{answer}
 
-\subsubsection{(bonus) Plot for four runs with optimal b* and r* -- \lbrack0.5 points\rbrack}
+\subsubsection{Plot for four runs with optimal b* and r* -- \lbrack0.5 points\rbrack}
 \begin{answer}[title=Q7.2.7,height=10cm,width=\linewidth]
 \centering
 \includegraphics[height=8cm]{q4_3.png}
@@ -327,5 +327,3 @@ python rob831/scripts/run_hw2.py \
 \end{answer}
 
 \end{document}
-
-

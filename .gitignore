@@ -1,15 +1,28 @@
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
+# macOS
 .DS_Store
 
-# Very large training artifacts
-hw1/data/**/videos*/
-*.mp4
-*.gif
-*.avi
-*.tfevents*
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
 
-# Bytecode anywhere inside rob831
-hw1/rob831/**/__pycache__/
+# LaTeX build outputs
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*_minted*/
+hw2/_minted/
+
+# PDFs generated locally (remove this line if you want PDFs tracked)
+*.pdf
+
+# Zips & local submissions (remove if you want to keep submit.zip tracked)
+*.zip
+
+# IDEs
+.vscode/
+.idea/
