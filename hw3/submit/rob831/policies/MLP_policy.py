@@ -84,6 +84,8 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
 
     ##################################
     def get_action(self, obs: np.ndarray) -> np.ndarray:
+        if isinstance(obs, tuple):
+            obs = obs[0]
         if len(obs.shape) > 1:
             observation = obs
         else:
@@ -126,4 +128,19 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
 class MLPPolicyAC(MLPPolicy):
     def update(self, observations, actions, adv_n=None):
         # TODO: update the policy and return the loss
+        obs_tensor = ptu.from_numpy(np.asarray(observations))
+        act_tensor = ptu.from_numpy(np.asarray(actions))
+        if adv_n is None:
+            adv_tensor = torch.ones(act_tensor.shape[0], device=ptu.device)
+        else:
+            adv_tensor = ptu.from_numpy(np.asarray(adv_n))
+        if self.discrete:
+            act_tensor = act_tensor.long().squeeze(-1)
+        adv_tensor = adv_tensor.reshape(-1).to(torch.float32)
+        dist = self.forward(obs_tensor)
+        log_probs = dist.log_prob(act_tensor)
+        loss = -(log_probs * adv_tensor).mean()
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
         return loss.item()

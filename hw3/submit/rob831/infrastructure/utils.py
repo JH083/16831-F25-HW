@@ -5,6 +5,30 @@ import copy
 ############################################
 ############################################
 
+def reset_env(env, seed=None):
+    """Gymnasium-compatible reset that returns just obs."""
+    try:
+        if seed is not None:
+            out = env.reset(seed=seed)
+        else:
+            out = env.reset()
+        return out[0] if isinstance(out, tuple) else out
+    except TypeError:
+        # Old Gym fallback
+        return env.reset()
+
+def step_env(env, action):
+    """Gymnasium-compatible step that returns (obs, reward, done, info)."""
+    out = env.step(action)
+    if isinstance(out, tuple) and len(out) == 5:
+        obs, rew, terminated, truncated, info = out
+        done = bool(terminated or truncated)
+        return obs, rew, done, info
+    else:
+        # Old Gym fallback: (obs, rew, done, info)
+        obs, rew, done, info = out
+        return obs, rew, done, info
+
 def calculate_mean_prediction_error(env, action_sequence, models, data_statistics):
 
     model = models[0]
@@ -27,7 +51,7 @@ def calculate_mean_prediction_error(env, action_sequence, models, data_statistic
     return mpe, true_states, pred_states
 
 def perform_actions(env, actions):
-    ob = env.reset()
+    ob = reset_env(env)
     obs, acs, rewards, next_obs, terminals, image_obs = [], [], [], [], [], []
     steps = 0
     for ac in actions:
@@ -55,7 +79,7 @@ def mean_squared_error(a, b):
 ############################################
 
 def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('rgb_array')):
-    obs = env.reset()
+    obs = reset_env(env)
     obses, acts, rews, nobses, terms, imgs = [], [], [], [], [], []
     steps = 0
     while True:
@@ -75,7 +99,7 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
         act = policy.get_action(obs)
         act = act[0]
         acts.append(act)
-        nobs, rew, done, _ = env.step(act)
+        nobs, rew, done, _ = step_env(env, act)
         nobses.append(nobs)
         rews.append(rew)
         obs = nobs.copy()

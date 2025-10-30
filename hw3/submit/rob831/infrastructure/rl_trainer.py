@@ -4,7 +4,11 @@ import os
 import sys
 import time
 
-import gym
+try:
+    import gymnasium as gym
+except Exception:
+    import gym
+import random
 from gym import wrappers
 import numpy as np
 import torch
@@ -65,7 +69,33 @@ class RL_Trainer(object):
             self.mean_episode_reward = -float('nan')
             self.best_mean_episode_reward = -float('inf')
 
-        self.env.seed(seed)
+        # self.env.seed(seed)
+        # Set global RNGs
+        random.seed(seed)
+        np.random.seed(seed)
+        if torch is not None:
+            torch.manual_seed(seed)
+
+        # Env seeding: Gymnasium prefers reset(seed=...), Gym had env.seed(...)
+        try:
+            # Gymnasium API
+            self.env.reset(seed=seed)
+        except TypeError:
+            # Old Gym fallback
+            try:
+                self.env.seed(seed)
+            except AttributeError:
+                pass
+
+        # Also seed spaces when available (Gymnasium)
+        try:
+            self.env.action_space.seed(seed)
+        except Exception:
+            pass
+        try:
+            self.env.observation_space.seed(seed)
+        except Exception:
+            pass
 
         # import plotting (locally if 'obstacles' env)
         if not(self.params['env_name']=='obstacles-rob831-v0'):
