@@ -1,7 +1,7 @@
 import networkx as nx
 import scipy.sparse.csgraph
 import numpy as np
-import gymnasium as gym
+import gym
 import pickle
 
 WALLS = {

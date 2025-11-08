@@ -4,7 +4,7 @@ import random
 from collections import namedtuple
 import pdb
 
-import gymnasium as gym
+import gym
 import numpy as np
 from torch import nn
 import torch.optim as optim

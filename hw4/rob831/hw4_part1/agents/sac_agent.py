@@ -3,7 +3,7 @@ from collections import OrderedDict
 from rob831.hw4_part1.infrastructure.replay_buffer import ReplayBuffer
 from rob831.hw4_part1.infrastructure.utils import *
 from .base_agent import BaseAgent
-import gymnasium as gym
+import gym
 from rob831.hw4_part1.policies.sac_policy import MLPPolicySAC
 from rob831.hw4_part1.critics.sac_critic import SACCritic
 import rob831.hw4_part1.infrastructure.pytorch_util as ptu

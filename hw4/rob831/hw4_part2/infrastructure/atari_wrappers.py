@@ -1,5 +1,5 @@
 import numpy as np
-import gymnasium as gym
+import gym
 from gym import spaces
 
 class ReturnWrapper(gym.Wrapper):
