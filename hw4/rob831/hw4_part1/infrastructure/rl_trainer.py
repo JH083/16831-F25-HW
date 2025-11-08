@@ -4,7 +4,7 @@ import os
 import sys
 import time
 
-import gym
+import gymnasium as gym
 from gym import wrappers
 import numpy as np
 import torch
