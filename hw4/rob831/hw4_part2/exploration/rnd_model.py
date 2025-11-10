@@ -22,21 +22,71 @@ class RNDModel(nn.Module, BaseExplorationModel):
         self.size = hparams['rnd_size']
         self.optimizer_spec = optimizer_spec
 
-        # <TODO>: Create two neural networks:
-        # 1) f, the random function we are trying to learn
-        # 2) f_hat, the function we are using to learn f
+        if isinstance(self.ob_dim, int):
+            self.input_dim = self.ob_dim
+        else:
+            self.input_dim = 1
+            for dim in self.ob_dim:
+                self.input_dim *= dim
+        self.f = ptu.build_mlp(
+            input_size=self.input_dim,
+            output_size=self.output_size,
+            n_layers=self.n_layers,
+            size=self.size,
+            activation='relu',
+            output_activation='identity',
+            init_method=init_method_1,
+        )
+        self.f_hat = ptu.build_mlp(
+            input_size=self.input_dim,
+            output_size=self.output_size,
+            n_layers=self.n_layers,
+            size=self.size,
+            activation='relu',
+            output_activation='identity',
+            init_method=init_method_2,
+        )
+        self.f.to(ptu.device)
+        self.f_hat.to(ptu.device)
+        for param in self.f.parameters():
+            param.requires_grad = False
+        self.optimizer = self.optimizer_spec.constructor(
+            self.f_hat.parameters(),
+            **self.optimizer_spec.optim_kwargs
+        )
+        self.learning_rate_scheduler = optim.lr_scheduler.LambdaLR(
+            self.optimizer,
+            self.optimizer_spec.learning_rate_schedule,
+        )
 
     def forward(self, ob_no):
-        # <TODO>: Get the prediction error for ob_no
-        # HINT: Remember to detach the output of self.f!
-        pass
-
+        if not torch.is_tensor(ob_no):
+            ob_no = ptu.from_numpy(ob_no)
+        else:
+            ob_no = ob_no.float().to(ptu.device)
+        squeezed = False
+        if ob_no.dim() == 1:
+            ob_no = ob_no.unsqueeze(0)
+            squeezed = True
+        ob_proc = ob_no.reshape(ob_no.shape[0], -1)
+        with torch.no_grad():
+            f_target = self.f(ob_proc)
+        f_hat_pred = self.f_hat(ob_proc)
+        error = torch.sum((f_hat_pred - f_target) ** 2, dim=1)
+        if squeezed:
+            error = error.squeeze(0)
+        return error
+    
     def forward_np(self, ob_no):
         ob_no = ptu.from_numpy(ob_no)
         error = self(ob_no)
         return ptu.to_numpy(error)
 
     def update(self, ob_no):
-        # <TODO>: Update f_hat using ob_no
-        # Hint: Take the mean prediction error across the batch
-        pass
+        ob_no = ptu.from_numpy(ob_no)
+        loss = self(ob_no).mean()
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+        self.learning_rate_scheduler.step()
+        return loss.item()

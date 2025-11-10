@@ -90,9 +90,11 @@ Answer to theory questions.\\
 \begin{answer}[title=Plot 3,height=9.5cm,width=\linewidth]
 \centering
 \includegraphics[height=8cm]{/Users/jihyun/Desktop/cmu/Robot Learning/16831-F25-HW/hw4/rob831/data/q1/hw4_q1_cheetah_n500_arch2x200_cheetah-hw4_part1-v0_08-11-2025_23-10-11/itr_0_losses.png}
-The 2x200 network trained for 500 steps performs the best. I think this might be the case because it learns complex patterns better due to its larger size and longer training.\\
+
 
 \end{answer}
+
+The 2x200 network trained for 500 steps performs the best. I think this might be the case because it learns complex patterns better due to its larger size and longer training.\\
 
 \section{Problem 2: Action Selection [4pts]}
 \begin{answer}[title=Plot 1,height=9.5cm,width=\linewidth]
@@ -126,30 +128,39 @@ The 2x200 network trained for 500 steps performs the best. I think this might be
 
 \section{Problem 4: Hyper-parameter Comparison [4pts]}
 \begin{answer}[title=Plot 1,height=9.5cm,width=\linewidth]
-% TODO
+
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q4_1.png}
 \end{answer}
 
+As ensemble size increases, the plots show improved performance stability and average return since it reduces overfitting.
+So, the model with ensemble size 5 shows the best performance in the plot.
 
 \begin{answer}[title=Plot 2,height=9.5cm,width=\linewidth]
-% TODO
+
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q4_2.png}
 \end{answer}
 
+As candidate action sequences increase, it has a better evaluation returns because it allows the MPC planner to explore more.
+
 \begin{answer}[title=Plot 3,height=9.5cm,width=\linewidth]
-% TODO
+
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q4_3.png}
 \end{answer}
+
+For the first few iterations, the longer horizon improves the performance, but it ended up that horizon with 5 had the best performance because long horizons could amplify model prediction errors.
 
 \section{Problem 5: CEM (Bonus) [2.5pts]}
 \begin{answer}[title=Plot 1,height=9.5cm,width=\linewidth]
-% TODO
+
 \centering
-\includegraphics[height=8cm]{example-image-a}
+\includegraphics[height=8cm]{q5.png}
 \end{answer}
+
+As shown in the plot, the higher CEM iterations show improved performance, so the one with CEM iterations 4 has the highest average return.
+This shows that more iterations of CEM leads to better action sequence optimization.
 
 \section{Problem 6: Exploration (Bonus) [2.5pts]}
 \begin{answer}[title=Plot 1,height=9.5cm,width=\linewidth]
